@@ -36,6 +36,40 @@ class Trie:
             current = current.child[c]
 
         return True
+    
+    def delete(self, word: str) -> None:
+        if not self.root.child:
+            return
+        self._delete_function_(self.root, word)
+
+    def _delete_function_(self, node: TrieNode, word: str) -> bool:
+        # base case - when we reach the end of the word
+        if not word:
+            # child node exists --> so don't delete the node (just set the marker false)
+            if len(node.child) > 0:
+                node.end = False
+                # false indicated this node can't be deleted
+                return False
+            # no children --> this node can be deleted
+            else:
+                return True
+
+        # recursive case - word has characters left
+        else:
+            if word[0] in node.child:
+                can_delete_child = self._delete_function_(node.child[word[0]], word[1:])
+                if can_delete_child:
+                    del node.child[word[0]]
+
+                    # we decide if this itself can be deleted or not
+                    # can delete if no children and not end of another word
+                    return len(node.child) == 0 and (not node.end)
+                else:
+                    return False
+            # character not found case --> no deletion
+            else:
+                return False
+            
 
 if __name__ == "__main__":
     # testing code
@@ -45,6 +79,11 @@ if __name__ == "__main__":
     for word in words:
         test_trie.insert(word)
 
-    print(test_trie.search("apple"))
-    print(test_trie.search("appl"))
-    print(test_trie.startsWith("sti"))
+    print("Search apple: ", test_trie.search("apple"))
+    print("Search appl: ", test_trie.search("appl"))
+    print("StartsWith sti: ", test_trie.startsWith("sti"))
+    test_trie.delete("apple")
+    print("apple deleted")
+    print("Search apple: ", test_trie.search("apple"))
+    print("Search app: ",test_trie.search("app"))
+    print("StartsWith appl: ", test_trie.startsWith("appl"))
