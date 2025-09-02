@@ -70,6 +70,21 @@ class Trie:
             else:
                 return False
             
+    def allWords(self) -> list:
+        l = []
+        if not self.root.child:
+            return []
+        self._all_words_(self.root, l, "")
+        return l
+
+    def _all_words_(self, node, res, curr_word) -> None:
+        # base case - when we see a marker (end of a word)
+        if node.end == True:
+            res.append(curr_word)
+        
+        # recursive case --> call on all the children
+        for k in node.child:
+            self._all_words_(node.child[k], res, curr_word+k)
 
 if __name__ == "__main__":
     # testing code
@@ -87,3 +102,4 @@ if __name__ == "__main__":
     print("Search apple: ", test_trie.search("apple"))
     print("Search app: ",test_trie.search("app"))
     print("StartsWith appl: ", test_trie.startsWith("appl"))
+    print(test_trie.allWords())
