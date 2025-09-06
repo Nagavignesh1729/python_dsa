@@ -36,7 +36,28 @@ class Progression:
         print(" ".join(str(next(self)) for j in range(n)))
 
 
+class ArithmeticProgression(Progression):
+    """ Iterator producing an arithmetic progression """
+    def __init__(self, increment = 1, start = 0):
+        """ Create an arithmetic progression 
+        
+        increment   the fixed constant to add to each term (default 1)
+        start       the first term of the progression (default 0)
+        """
+
+        super().__init__(start)         # initialise base class 
+        self._increment = increment
+    
+    def _advance(self):
+        """ Update current value by adding the fixed increment. """
+        self._current += self._increment
+
+
 if __name__ == "__main__":
     whole_numbers = Progression()
     whole_numbers.print_progression(10)
     whole_numbers.print_progression(20)
+
+    ap = ArithmeticProgression(5, 2)
+    ap.print_progression(10)
+    ap.print_progression(20)
