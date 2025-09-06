@@ -38,6 +38,10 @@ def disjoint2(A, B, C):
     """ Algorithm becomes O(n^2) (Think Why) """
 
 
+""" Bonus: Assuming sorting can be done in O(nlogn), 
+    show that this problem can be solved in O(nlogn) """
+
+
 if __name__ == "__main__":
     """ Graphically verify if disjoint2 is actually quadratic or not
         (will code later)
