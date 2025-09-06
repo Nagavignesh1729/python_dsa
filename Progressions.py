@@ -50,7 +50,7 @@ class ArithmeticProgression(Progression):
         super().__init__(start)         # initialise base class 
         self._increment = increment
     
-    def _advance(self):                 # override inherited version
+    def _advance(self):                 # override inherited version:
         """ Update current value by adding the fixed increment. """
         self._current += self._increment
 
@@ -69,9 +69,29 @@ class GeometricProgression(Progression):
         self._base = base
         
 
-    def _advance(self):             # override inherited version
+    def _advance(self):                 # override inherited version
         """ Update current value by multiplying it by the base value. """
         self._current *= self._base
+
+class FibonacciProgression(Progression):
+    """ Iterator producing the Fibonacci progression 
+        deafault series being 0 1 1 2 3 5 ...
+    """
+
+    def __init__(self, first = 0, second = 1):
+        """ Create a new Fibonacci Progression
+
+        first       the first term of the progression (default 0)
+        second      the second term of the progession (default 1)
+        """
+
+        super().__init__(first)         # start progression at first    
+        self._prev = second - first     # fictitious value preceding the first
+
+    def _advance(self):                 # override inherited version 
+        """ Update current value by taking sum of previous two """
+        self._prev, self._current = self._current, self._prev + self._current
+
 
 
 """ Testing code """
@@ -91,3 +111,7 @@ if __name__ == "__main__":
     gp = GeometricProgression(3, 1)
     gp.print_progression(5)
     gp.print_progression(5)
+
+    print("Fibonacci Progression")
+    fibo = FibonacciProgression()
+    fibo.print_progression(10)
