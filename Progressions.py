@@ -3,6 +3,7 @@ class Progression:
         An iterator producing generic progression
         By default produces the whole numbers (0, 1, 2, 3...)
     """
+
     def __init__(self, start = 0):
         """ Initialise current to the starting value of the progression. """
         self._current = start
@@ -38,6 +39,7 @@ class Progression:
 
 class ArithmeticProgression(Progression):
     """ Iterator producing an arithmetic progression """
+    
     def __init__(self, increment = 1, start = 0):
         """ Create an arithmetic progression 
         
@@ -48,16 +50,43 @@ class ArithmeticProgression(Progression):
         super().__init__(start)         # initialise base class 
         self._increment = increment
     
-    def _advance(self):
+    def _advance(self):                 # override inherited version
         """ Update current value by adding the fixed increment. """
         self._current += self._increment
 
 
+class GeometricProgression(Progression):
+    """ Iterator producing a geometric progression """
+    
+    def __init__(self, base = 2, start = 1):
+        """ Create a new Geometric Progression
+
+        base        the fixed constant multiplied to each term (default 2)\
+        start       the first term of the progression (default 1)
+        """
+
+        super().__init__(start)         # initialise base class
+        self._base = base
+        
+
+    def _advance(self):             # override inherited version
+        """ Update current value by multiplying it by the base value. """
+        self._current *= self._base
+
+
 if __name__ == "__main__":
+    
+    print("Whole numbers")
     whole_numbers = Progression()
     whole_numbers.print_progression(10)
     whole_numbers.print_progression(20)
 
+    print("Arithemetic Progression")
     ap = ArithmeticProgression(5, 2)
     ap.print_progression(10)
     ap.print_progression(20)
+
+    print("Geometric Progression")
+    gp = GeometricProgression(3, 1)
+    gp.print_progression(5)
+    gp.print_progression(5)
