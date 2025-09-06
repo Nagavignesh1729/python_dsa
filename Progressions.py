@@ -74,6 +74,7 @@ class GeometricProgression(Progression):
         self._current *= self._base
 
 
+""" Testing code """
 if __name__ == "__main__":
     
     print("Whole numbers")
