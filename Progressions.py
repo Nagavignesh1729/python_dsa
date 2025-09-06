@@ -3,7 +3,7 @@ class Progression:
         An iterator producing generic progression
         By default produces the whole numbers (0, 1, 2, 3...)
     """
-    def __init__self(self, start = 0):
+    def __init__(self, start = 0):
         """ Initialise current to the starting value of the progression. """
         self._current = start
 
@@ -34,3 +34,9 @@ class Progression:
     def print_progression(self, n):
         """ Print next n values of the progression """
         print(" ".join(str(next(self)) for j in range(n)))
+
+
+if __name__ == "__main__":
+    whole_numbers = Progression()
+    whole_numbers.print_progression(10)
+    whole_numbers.print_progression(20)
